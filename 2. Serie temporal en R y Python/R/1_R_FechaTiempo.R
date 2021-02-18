@@ -4,11 +4,9 @@ library(tseries)
 library(forecast)
 
 
-
-
 ### Opciones estándar en R base POSIXt: Portable Operating System Interface for Time (codificación estándar)
 
-x = as.POSIXct("2019-12-25 11:45:34") # Número de segundos
+x = as.POSIXct("2019-12-25 11:45:34") # Número de segundos desde la fecha de referencia 01-01-1970
 
 y = as.POSIXlt("2019-12-25 11:45:34")
 
