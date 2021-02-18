@@ -42,7 +42,7 @@ autoplot((nottem))
 autoplot(nottem) + ggtitle("Autoplot of Nottingham temperature data")
 
 
-
+  
 
 ### Datos faltantes y Outliers 
 ## Import ts.Rmissing.csv
