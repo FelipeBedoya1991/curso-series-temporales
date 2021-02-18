@@ -1,6 +1,6 @@
 #Importando datos de precios de cierre de Starbucks y Microsoft
 library(readr)
-sbux.df <- read_csv("A CURSO SERIES TEMPORALES (NUEVO)/Clases Nuevas/Starbuck/sbuxPrices.csv")
+sbux.df <- read_csv('sbuxPrices.csv')
 View(sbux.df)
 
 sbux.ts = ts(data=sbux.df$Adj.Close, frequency = 12,
@@ -8,7 +8,7 @@ sbux.ts = ts(data=sbux.df$Adj.Close, frequency = 12,
 class(sbux.ts) 
 
 
-msft.df <- read_csv("A CURSO SERIES TEMPORALES (NUEVO)/Clases Nuevas/Starbuck/msftPrices.csv")
+msft.df <- read_csv("msftPrices.csv")
 View(sbux.df)
 msft.ts = ts(data=msft.df$Adj.Close, frequency = 12,
              start=c(1993,3), end=c(2008,3))
@@ -20,10 +20,11 @@ end(sbux.ts)
 frequency(sbux.ts) 
 
 #Subconjunto de la serie de tiempo
-tmp = sbux.ts[1:5] 
+tmp = sbux.ts[1:5]#5 primeras filas, devuelve un arreglo, no una serie. 
 class(tmp)
 
-tmp = window(sbux.ts, start=c(1993, 3), end=c(1993,8))
+tmp = window(sbux.ts, start=c(1993, 3), end=c(1993,8))#tomar las primeras
+#5 filas de una serie.
 class(tmp)
 
 
@@ -31,7 +32,7 @@ class(tmp)
 
 sbuxmsft.ts = cbind(sbux.ts, msft.ts) 
 class(sbuxmsft.ts) 
-#mts: multiple time series
+#mts: multiple time series - el objeto es una matriz
 
 #Seleccionando las primeras 5 filas:
 window(sbuxmsft.ts, start=c(1993, 3), end=c(1993,7)) 
@@ -63,7 +64,7 @@ legend(1994, 35, legend=c("SBUX","MSFT"), col=c("blue", "red"),
 
 
 ################### zoo
-library(zoo) 
+library(zoo)#útil para indice de tiempo ordenado pero arbitrario 
 
 #Fecha
 td = seq(as.Date("1993/3/1"), as.Date("2008/3/1"), "months") 
@@ -86,13 +87,14 @@ head(sbux.z)
 
 #Extrayendo el indice de tiempo y los datos
 index(sbux.z) 
-coredata(sbux.z) 
+coredata(sbux.z)#valores númericos pero sin fechas 
 
 #Start and End
 start(sbux.z) 
 end(sbux.z)
 
-#Ventaja de zoo: extraer subconjunto indexando con las fechas
+#Ventaja de zoo: extraer subconjunto indexando con las fechas, no un rango
+#sino valores puntuales
 sbux.z[as.Date(c("2000/3/1", "2003/3/1"))]
 
 #window() también funciona
@@ -121,7 +123,7 @@ legend(x="topleft", legend=c("SBUX","MSFT"), col=c("blue","red"),
 
 
 #Importar datos directamente como objeto zoo
-sbux.z2 = read.zoo("A CURSO SERIES TEMPORALES (NUEVO)/Clases Nuevas/Starbuck/sbuxPrices.csv",
+sbux.z2 = read.zoo("sbuxPrices.csv",
                    format="%m/%d/%Y", sep=",", header=T) 
 
 
